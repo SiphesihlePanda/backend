@@ -14,8 +14,8 @@
 }
 
 * {
-    padding: 10px;
-    margin: 10px;
+    padding: 5px;
+    margin: 5px;
     box-sizing: border-box;
 }
 
@@ -45,7 +45,7 @@ nav {
 
 .nav-links {
     display: flex;
-    width: 50%;
+    width: 70%;
     justify-content: space-around;
 }
 
@@ -56,9 +56,9 @@ nav {
 .nav-links a {
     color: var(--text-color);
     text-decoration: none;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-weight: bold;
-    font-size: 10px;
+    font-size: 15px;
     font-family: var(--headline-font);
 }
 

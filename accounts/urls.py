@@ -5,7 +5,6 @@ app_name = 'accounts'
 
 urlpatterns =[
    
-    path("accounts/login",views.loginView, name="login" ),
-    # path("", ),
-    # path(''),
+    path("signup/",views.registerView, name="signup" ),
 ]
+   
