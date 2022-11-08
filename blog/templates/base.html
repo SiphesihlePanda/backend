@@ -21,10 +21,22 @@
         </div>
         <ul class="nav-links">
             <li><a href="">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="./pages/contact.html">Contact</a></li>
+            <li><a href="{% url 'blog:about' %}">About</a></li>
+            <li><a href="{% url 'blog:contact' %}">Contact</a></li>
             <li><a href="">Blog</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'blog:logout'%}">Logout</a></li>
+            {%else%}
             <li class="nav-item"><a href="{% url 'blog:login' %}" class="nav-link">Login</a></li>
+            <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+            {% endif%}
+
+            {% if request.user.is_authenticated %}
+            <li> Hello {{request.user}}</li>
+            {%endif%}
+           
+           
+            
         </ul>
         <div class="burger">
             <div class="line1"></div>
@@ -32,6 +44,13 @@
             <div class="line3"></div>
         </div>
     </nav>
+    <div class="container mt-5">
+        {% if message %}
+        {% for message in messages%}
+        <div class="alert alert-danger mt-5" role="alert">{{message}}</div>
+        {%endfor%}
+        {%endif%}
+    </div>
     {% block content %}
 
     {% endblock content %}

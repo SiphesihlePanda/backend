@@ -6,5 +6,6 @@ app_name = 'accounts'
 urlpatterns =[
    
     path("signup/",views.registerView, name="signup" ),
+    path('<pk>/update', views.UserEditView.as_view(), name='edit_profile'),
 ]
    

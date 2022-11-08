@@ -8,6 +8,7 @@ from .models import Book , Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CommentForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def displayTime(request):
@@ -16,9 +17,14 @@ def displayTime(request):
     return HttpResponse(html)
 
 
+# def contactView(request):
+#     return render(request, 'contact.html',{})
+
+def aboutView(request):
+    return render(request, 'about.html',{}) 
+
 def contactView(request):
-    html = "Welcome to my contact page"
-    return HttpResponse(html)
+    return render(request, 'contact.html',{})
 
 # Class based views.
 # class Myviews(TemplateView):
@@ -78,10 +84,18 @@ def loginView(request):
             if user is not None:
                 login(request,user)
                 messages.info(request,f"You are now logged in as {username}.")
-                return redirect("profile")
+                return redirect("blog:profile")
             else:
                 messages.error(request,f"Invalid username or password")
         else:
             messages.error(request,f"Invalid username or password")
     form = AuthenticationForm()            
     return render(request,'authenticate/login.html',context={'form':form})
+
+@login_required(login_url='blog:login')
+def profileView(request):
+    return render(request, 'profile.html', {})
+
+def logoutView(request):
+    logout(request)
+    return redirect('/')

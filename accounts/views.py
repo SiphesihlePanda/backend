@@ -5,6 +5,11 @@ from django.contrib import messages
 from .forms import CreateUserForm
 from django.contrib.auth.forms import UserCreationForm
 
+from django.views.generic import UpdateView
+from django.contrib.auth.forms import UserChangeForm
+from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+
 # Create your views here.
 def registerView (request):
     form=CreateUserForm()
@@ -14,7 +19,7 @@ def registerView (request):
             form.save()
             username= form.cleaned_data["username"]
             email= form.cleaned_data["email"]
-            password= form.cleaned_data["password1", "password2"]
+            password= form.cleaned_data["password1","password2"]
             user= authenticate(username=username, password=password, email=email)
             login(request, user)
             messages.success(request, ' Account created successfully')
@@ -22,4 +27,10 @@ def registerView (request):
     else:
         form=CreateUserForm()
     return render(request, 'registration/signup.html', {'form':form})
+
+class UserEditView(UpdateView):
+    model = User
+    form_class= UserChangeForm
+    template_name= 'registration/editprofile.html'
+    sucess_url= reverse_lazy("blog:profile")
 
